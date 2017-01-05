@@ -205,7 +205,9 @@ with color-space reads. This is an experimental feature.
 
 # Publications
 
-http://denovoassembler.sf.net/publications.html
+- Assembler: https://www.ncbi.nlm.nih.gov/pubmed/20958248
+- Profiler: https://www.ncbi.nlm.nih.gov/pubmed/23259615
+- Surveyor: (coming soon)
 
 # Code
 
@@ -231,6 +233,12 @@ http://denovoassembler.sf.net/publications.html
 - http://cw.squyres.com/
 - http://blogs.cisco.com/performance/
 - http://www.parawiki.org/index.php/Message_Passing_Interface#Peer_to_Peer_Communication
+
+## Actor model
+
+- https://en.wikipedia.org/wiki/Actor_model
+- https://arxiv.org/abs/1008.1459
+- http://dl.acm.org/citation.cfm?id=1624804
 
 # Funding
 
