@@ -235,6 +235,7 @@ http://denovoassembler.sf.net/publications.html
 # Funding
 
 Doctoral Award to S.B., Canadian Institutes of Health Research (CIHR)
+Doctoral Award to M.D., The Fonds de recherche du Québec – Santé (FRQS)
 
 # Authors
 
