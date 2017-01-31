@@ -242,8 +242,8 @@ with color-space reads. This is an experimental feature.
 
 # Funding
 
-Doctoral Award to S.B., Canadian Institutes of Health Research (CIHR)
-Doctoral Award to M.D., The Fonds de recherche du Québec – Santé (FRQS)
+- Doctoral Award to S.B., Canadian Institutes of Health Research (CIHR)
+- Doctoral Award to M.D., The Fonds de recherche du Québec – Santé (FRQS)
 
 # Authors
 
