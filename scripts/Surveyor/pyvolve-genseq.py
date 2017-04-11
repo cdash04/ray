@@ -89,7 +89,7 @@ def ray_surveyor_config():
 if __name__ == "__main__":
 
     usage ='''
-    python pyvolve-gen-seq.py <tree.nwk> <seq-size> [<scale> default=1 (no scale)]
+    python pyvolve-genseq.py <tree.nwk> <seq-size> [<scale> default=1 (no scale)]
     '''
     if len(sys.argv) < 3:
         sys.exit(usage)
