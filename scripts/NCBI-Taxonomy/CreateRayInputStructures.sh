@@ -72,7 +72,9 @@ then
                 sed -r 's|(ftp://ftp.ncbi.nlm.nih.gov/genomes/all/.+/)(GCF_.+)|\1\2/\2_genomic.fna.gz |' > wgetFile.txt
 		totalFile=`wc -l wgetFile.txt | cut -d" " -f 1`
 		fileDownload=0
-		echo "Downloading all refSeq file... this may take a while, sit back and relax or go take a coffee, why not! \n $fileDownload on $totalFile total files "
+		echo "Downloading all refSeq file..."
+		echo "this may take a while, sit back and relax or go take a coffee, why not!"
+		echo "$fileDownload on $totalFile total files "
 		while read  ftpLink; 	do
 			fileDownload=$((fileDownload+=1))
 			timeout 5m wget -q $ftpLink
@@ -117,7 +119,9 @@ fi
 if test ! -f Genome-to-Taxon.tsv
 then
 	echo "Creating $OutputDirectory/Genome-to-Taxon.tsv, please wait."
-	cat ftp.ncbi.nih.gov/nucl_wgs.accession2taxid.gz | gunzip | cut -f 3,2 > Genome-to-Taxon.tsv
+	cat ftp.ncbi.nih.gov/nucl_wgs.accession2taxid.gz | gunzip | cut -f 3,2 > Genome-to-Taxon.tmp
+	tail -n +2 Genome-to-Taxon.tmp  > Genome-to-Taxon.tsv
+	rm Genome-to-Taxon.tmp
 	echo "Done."
 fi
 
@@ -132,7 +136,7 @@ fi
 if test ! -f Taxon-Names.tsv
 then
 	echo "Creating $OutputDirectory/Taxon-Names.tsv, please wait."
-	Create-Taxon-Names.py uncompressed/taxdump/nodes.dmp uncompressed/taxdump/names.dmp Taxon-Names.tsv
+	../Create-Taxon-Names.py uncompressed/taxdump/nodes.dmp uncompressed/taxdump/names.dmp Taxon-Names.tsv
 	echo "Done."
 fi
 
@@ -143,11 +147,9 @@ then
 	mkdir NCBI-Finished-Bacterial-Genomes
 	cd NCBI-Finished-Bacterial-Genomes
 
-	for i in $(ls ../uncompressed/all.fna)
+	for i in ../uncompressed/all.fna/*
 	do
-		name=$(echo $i|sed 's/_uid/ /g'|awk '{print $1}')
-	
-		cat ../uncompressed/all.fna/$i/*.fna > $name".fasta"
+		cat $i >> "all.fasta"
 	done
 
 	echo "Done."
