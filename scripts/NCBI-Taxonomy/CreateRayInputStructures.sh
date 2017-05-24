@@ -107,8 +107,10 @@ then
 	echo "Decompressing all.fna.gz, please wait."
 	mkdir all.fna
 	cd all.fna
-	cp ../../ftp.ncbi.nih.gov/all.fna.gz/*.gz .
-	gunzip *.gz	
+	for gzFile in ../../ftp.ncbi.nih.gov/all.fna.gz/*.gz
+	do
+		cat $gzFile | gzip -d >> allSeq.fna #$(sed "s@../../ftp.ncbi.nih.gov/all.fna.gz/@@g" $gzFile | sed "s/.gz//g")
+	done	
 	cd ..
 	echo "Done."
 
@@ -147,11 +149,11 @@ then
 	mkdir NCBI-Finished-Bacterial-Genomes
 	cd NCBI-Finished-Bacterial-Genomes
 
-	for i in ../uncompressed/all.fna/*
-	do
-		cat $i >> "all.fasta"
-	done
-
+	#for i in ../uncompressed/all.fna/*
+	#do
+	#	cat $i >> "all.fasta"
+	#done
+	cp ../uncompressed/all.fna/allSeq.fna allSeq.fasta
 	echo "Done."
 	
 	cd ..
