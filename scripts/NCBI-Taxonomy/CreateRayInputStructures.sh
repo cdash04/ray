@@ -4,7 +4,7 @@
 
 program=$0
 OutputDirectory=$1
-waitingSeconds=10
+waitingSeconds=0
 
 if test "$OutputDirectory" = ""
 then
@@ -48,10 +48,11 @@ then
 	mkdir ftp.ncbi.nih.gov
 	cd ftp.ncbi.nih.gov
 
-	if test ! -f gi_taxid_nucl.dmp.gz
+	if test ! -f nucl_wgs.accession2taxid.gz
 	then
-		echo "Downloading gi_taxid_nucl.dmp.gz, please wait."
-		wget ftp://ftp.ncbi.nih.gov/pub/taxonomy/gi_taxid_nucl.dmp.gz
+		#TODO get the news files with the good taxid
+		echo "Downloading nucl_wgs.accession2taxid.gz, please wait."
+		wget ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/nucl_wgs.accession2taxid.gz
 		echo "Done."
 	fi
 
@@ -62,11 +63,28 @@ then
 		echo "Done."
 	fi
 
-	if test ! -f all.fna.tar.gz
+	if test ! -f all.fna.gz
 	then
+		mkdir all.fna.gz
+		cd all.fna.gz
 		echo "Downloading all.fna.tar.gz, please wait."
-		wget ftp://ftp.ncbi.nih.gov/genomes/Bacteria/all.fna.tar.gz
-		echo "Done."
+		curl -s  'ftp://ftp.ncbi.nlm.nih.gov/genomes/refseq/bacteria/assembly_summary.txt' | awk '{FS="\t"}  !/^#/ {print $20} ' | \
+                sed -r 's|(ftp://ftp.ncbi.nlm.nih.gov/genomes/all/.+/)(GCF_.+)|\1\2/\2_genomic.fna.gz |' > wgetFile.txt
+		totalFile=`wc -l wgetFile.txt | cut -d" " -f 1`
+		fileDownload=0
+		echo "Downloading all refSeq file..."
+		echo "this may take a while, sit back and relax or go take a coffee, why not!"
+		echo "$fileDownload on $totalFile total files "
+		while read  ftpLink; 	do
+			fileDownload=$((fileDownload+=1))
+			timeout 5m wget -q $ftpLink
+			tput cuu 1 && tput el
+			echo "Downloading all refSeq file... $fileDownload on $totalFile total files "
+
+		done <wgetFile.txt
+		rm wgetFile.txt
+		echo "Done!"
+		cd .. 
 	fi
 
 	cd ..
@@ -89,7 +107,10 @@ then
 	echo "Decompressing all.fna.gz, please wait."
 	mkdir all.fna
 	cd all.fna
-	cat ../../ftp.ncbi.nih.gov/all.fna.tar.gz|gunzip|tar -x
+	for gzFile in ../../ftp.ncbi.nih.gov/all.fna.gz/*.gz
+	do
+		cat $gzFile | gzip -d >> allSeq.fna #$(sed "s@../../ftp.ncbi.nih.gov/all.fna.gz/@@g" $gzFile | sed "s/.gz//g")
+	done	
 	cd ..
 	echo "Done."
 
@@ -100,7 +121,9 @@ fi
 if test ! -f Genome-to-Taxon.tsv
 then
 	echo "Creating $OutputDirectory/Genome-to-Taxon.tsv, please wait."
-	cat ftp.ncbi.nih.gov/gi_taxid_nucl.dmp.gz|gunzip > Genome-to-Taxon.tsv
+	cat ftp.ncbi.nih.gov/nucl_wgs.accession2taxid.gz | gunzip | cut -f 3,2 > Genome-to-Taxon.tmp
+	tail -n +2 Genome-to-Taxon.tmp  > Genome-to-Taxon.tsv
+	rm Genome-to-Taxon.tmp
 	echo "Done."
 fi
 
@@ -115,7 +138,7 @@ fi
 if test ! -f Taxon-Names.tsv
 then
 	echo "Creating $OutputDirectory/Taxon-Names.tsv, please wait."
-	Create-Taxon-Names.py uncompressed/taxdump/nodes.dmp uncompressed/taxdump/names.dmp Taxon-Names.tsv
+	../Create-Taxon-Names.py uncompressed/taxdump/nodes.dmp uncompressed/taxdump/names.dmp Taxon-Names.tsv
 	echo "Done."
 fi
 
@@ -126,13 +149,11 @@ then
 	mkdir NCBI-Finished-Bacterial-Genomes
 	cd NCBI-Finished-Bacterial-Genomes
 
-	for i in $(ls ../uncompressed/all.fna)
-	do
-		name=$(echo $i|sed 's/_uid/ /g'|awk '{print $1}')
-	
-		cat ../uncompressed/all.fna/$i/*.fna > $name".fasta"
-	done
-
+	#for i in ../uncompressed/all.fna/*
+	#do
+	#	cat $i >> "all.fasta"
+	#done
+	mv ../uncompressed/all.fna/allSeq.fna allSeq.fasta
 	echo "Done."
 	
 	cd ..
@@ -157,6 +178,6 @@ echo "If you need support, send a email to denovoassembler-users@lists.sf.net"
 
 echo ""
 echo "Thank you for choosing Ray for your research."
-echo "Happy open assembly and profiling to you !"
+echo "Happy open assembly and profiling to you :) !"
 
 

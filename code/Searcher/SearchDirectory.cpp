@@ -622,6 +622,29 @@ bool SearchDirectory::lineIsSequenceHeader(char*line){
 /**
  * \see http://www.ncbi.nlm.nih.gov/RefSeq/RSfaq.html
  */
+//bool SearchDirectory::hasCurrentSequenceIdentifier(){
+//
+//	string currentSequenceHeader=m_currentSequenceHeader;
+//
+//	//cout<<"Identifier= "<<m_currentSequenceHeader<<endl;
+//
+//	// this means that the sequences are not genome sequences
+//	// but are genes or something like that.
+//	//if(m_currentSequenceHeader.find("|:") != string::npos){
+//		//cout<<"Contains '|:'"<<endl;
+//
+//		//return false;
+//	//}
+//
+//	if(currentSequenceHeader.find(">gi|") == string::npos)
+//		return false;
+//
+//	if(currentSequenceHeader.find(">gi|")==0)
+//		return true;
+//
+//	return false;
+//}
+
 bool SearchDirectory::hasCurrentSequenceIdentifier(){
 
 	string currentSequenceHeader=m_currentSequenceHeader;
@@ -631,54 +654,88 @@ bool SearchDirectory::hasCurrentSequenceIdentifier(){
 	// this means that the sequences are not genome sequences
 	// but are genes or something like that.
 	//if(m_currentSequenceHeader.find("|:") != string::npos){
-		//cout<<"Contains '|:'"<<endl;
+	//cout<<"Contains '|:'"<<endl;
 
-		//return false;
+	//return false;
 	//}
 
-	if(currentSequenceHeader.find(">gi|") == string::npos)
+	if(currentSequenceHeader.find(">") == string::npos)
 		return false;
 
-	if(currentSequenceHeader.find(">gi|")==0)
+	if(currentSequenceHeader.find(">")==0)
 		return true;
 
 	return false;
 }
 
+
+//PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
+//	int count=0;
+//	int i=0;
+//
+//	string currentSequenceHeader=m_currentSequenceHeader;
+//
+//	while(i<(int)currentSequenceHeader.length() && count<2){
+//		if(currentSequenceHeader[i]=='|')
+//			count++;
+//
+//
+//		i++;
+//	}
+//
+//	if(count!=2){
+//		return DUMMY_IDENTIFIER; // return a dummy identifier
+//	}
+//
+//	// >gi|1234|
+//	//
+//	// 0123456789
+//	//
+//	// 9-4-1 = 4
+//	//
+//	string content=currentSequenceHeader.substr(4,i-4-1);
+//
+//	istringstream aStream;
+//	aStream.str(content);
+//
+//	PhysicalKmerColor identifier;
+//
+//	aStream>>identifier;
+//
+//	return identifier;
+//}
+
 PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
-	int count=0;
-	int i=0;
+    //int count=0;
+    int i=0;
 
-	string currentSequenceHeader=m_currentSequenceHeader;
+    string currentSequenceHeader=m_currentSequenceHeader;
 
-	while(i<(int)currentSequenceHeader.length() && count<2){
-		if(currentSequenceHeader[i]=='|')
-			count++;
-		
-		
-		i++;
-	}
+    while(i<(int)currentSequenceHeader.length() && currentSequenceHeader[i]!=' '){
+        i++;
+    }
 
-	if(count!=2){
-		return DUMMY_IDENTIFIER; // return a dummy identifier
-	}
+    if(i==currentSequenceHeader.length()){
+        return DUMMY_IDENTIFIER; // return a dummy identifier
+    }
 
-	// >gi|1234|
-	//
-	// 0123456789
-	//
-	// 9-4-1 = 4
-	//
-	string content=currentSequenceHeader.substr(4,i-4-1);
+    // >gi|1234|
+    // 0123456789
+    //
+    // 9-4-1 = 4
+    //
+    // >NZ_G49.1
+    // 0123456789
+    string content=currentSequenceHeader.substr(1,i-1);
 
-	istringstream aStream;
-	aStream.str(content);
+    istringstream aStream;
+    aStream.str(content);
 
-	PhysicalKmerColor identifier;
+    PhysicalKmerColor identifier;
 
-	aStream>>identifier;
+    aStream>>identifier;
 
-	return identifier;
+    return identifier;
 }
 
 bool SearchDirectory::hasDirectory(int file){
