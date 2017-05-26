@@ -153,7 +153,7 @@ then
 	#do
 	#	cat $i >> "all.fasta"
 	#done
-	cp ../uncompressed/all.fna/allSeq.fna allSeq.fasta
+	mv ../uncompressed/all.fna/allSeq.fna allSeq.fasta
 	echo "Done."
 	
 	cd ..
