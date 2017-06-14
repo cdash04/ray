@@ -738,7 +738,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     return identifier;
 }
 
-bool SearchDirectory::hasDirectory(intin file){
+bool SearchDirectory::hasDirectory(int file){
 	return m_createdDirectories.count(file)>0;
 }
 
