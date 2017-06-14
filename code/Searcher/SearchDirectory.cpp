@@ -727,7 +727,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     // >NZ_G49.1
     // 0123456789
     string content=currentSequenceHeader.substr(1,i-1);
-
+    std::cout << "found the indentifier :" << content << "in the header" ;
     istringstream aStream;
     aStream.str(content);
 
@@ -738,7 +738,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     return identifier;
 }
 
-bool SearchDirectory::hasDirectory(int file){
+bool SearchDirectory::hasDirectory(intin file){
 	return m_createdDirectories.count(file)>0;
 }
 
