@@ -84,7 +84,7 @@ void GenomeToTaxonLoader::getNext(GenomeIdentifier*genome,TaxonIdentifier*taxon)
 	TaxonIdentifier loadedTaxon;
 
 	m_stream>>loadedGenome>>loadedTaxon;
-
+	std::cout << " genome " << loadedGenome << " and linked to taxon " << loadedTaxon << std::endl;
 	(*genome)=loadedGenome;
 	(*taxon)=loadedTaxon;
 

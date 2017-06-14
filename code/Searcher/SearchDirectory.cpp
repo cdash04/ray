@@ -727,7 +727,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     // >NZ_G49.1
     // 0123456789
     string content=currentSequenceHeader.substr(1,i-1);
-    std::cout << "found the indentifier :" << content << "in the header" ;
+    std::cout << "found the indentifier :" << content << "in the header" << std::endl;
     istringstream aStream;
     aStream.str(content);
 
