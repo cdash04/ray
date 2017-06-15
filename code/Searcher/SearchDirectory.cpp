@@ -735,7 +735,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
 	PhysicalKmerColor identifier;
 
     aStream>>identifier;
-	std::cout << "and his identifier converted to a 64 bit int is : " << identifier ;
+	std::cout << "and his identifier converted to a 64 bit int and the return value of the function is : " << identifier << std::endl ;
     return identifier;
 }
 
