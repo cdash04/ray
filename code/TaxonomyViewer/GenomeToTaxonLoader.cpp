@@ -79,12 +79,12 @@ void GenomeToTaxonLoader::getNext(GenomeIdentifier*genome,TaxonIdentifier*taxon)
 	if(m_current % STEPPING == 0){
 		cout<<"GenomeToTaxonLoader::getNext "<<m_current<<"/"<<m_size<<endl;
 	}
-
+	string tmpGenome;
 	GenomeIdentifier loadedGenome;
 	TaxonIdentifier loadedTaxon;
 
-	m_stream>>loadedGenome>>loadedTaxon;
-	std::cout << "the ifstream contain : " << m_stream << std::endl;
+	m_stream>>tmpGenome>>loadedTaxon;
+	std::cout << "the ifstream contain : " << tmpGenome << std::endl;
 	std::cout << "genome " << loadedGenome << " linked to taxon " << loadedTaxon << std::endl;
 	(*genome)=loadedGenome;
 	(*taxon)=loadedTaxon;

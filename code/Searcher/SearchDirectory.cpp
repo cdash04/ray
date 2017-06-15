@@ -728,6 +728,12 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     // 0123456789
     string content=currentSequenceHeader.substr(1,i-1);
     std::cout << "found the indentifier : " << content << " in the header" << std::endl;
+	for (size_t i = 0; i < content.size(); ++i){
+		if (isalpha(content[i])){
+			content[i] = static_cast<int>(static_cast<unsigned char>(content[i]));
+		}
+	}
+
     istringstream aStream;
     aStream.str(content);
 	//std::cout << "debug : the stream of the identifier is " << aStream ;
