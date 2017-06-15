@@ -42,7 +42,7 @@ void GenomeToTaxonLoader::load(string file){
 	}
 	
 	int count=0;
-
+	//while loop to count the number of line in the Genome-To-Taxon file
 	while(!m_stream.eof()){
 		string a="";
 
@@ -62,9 +62,9 @@ void GenomeToTaxonLoader::load(string file){
 		}
 
 	}
-
+	//buffer stream is empty, closing it
 	m_stream.close();
-
+	//reopen buffer to get all Genome-To-Taxon lines again
 	m_stream.open(file.c_str());
 
 	cout<<"File "<<file<<" has "<<m_size<<" entries"<<endl;
@@ -84,7 +84,8 @@ void GenomeToTaxonLoader::getNext(GenomeIdentifier*genome,TaxonIdentifier*taxon)
 	TaxonIdentifier loadedTaxon;
 
 	m_stream>>loadedGenome>>loadedTaxon;
-	std::cout << " genome " << loadedGenome << " and linked to taxon " << loadedTaxon << std::endl;
+	std::cout << "the ifstream contain : " << m_stream << std::endl;
+	std::cout << "genome " << loadedGenome << " linked to taxon " << loadedTaxon << std::endl;
 	(*genome)=loadedGenome;
 	(*taxon)=loadedTaxon;
 
