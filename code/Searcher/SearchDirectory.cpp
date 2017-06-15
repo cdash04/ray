@@ -730,12 +730,12 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     std::cout << "found the indentifier : " << content << " in the header" << std::endl;
     istringstream aStream;
     aStream.str(content);
-	std::cout << "debug : the stream of the identifier is " << aStream ;
+	//std::cout << "debug : the stream of the identifier is " << aStream ;
 
 	PhysicalKmerColor identifier;
 
     aStream>>identifier;
-	std::cout << "and his identifier converted to a 64 bit int and the return value of the function is : " << identifier << std::endl ;
+	std::cout <<"and the return value of the function is : " << identifier << std::endl ;
     return identifier;
 }
 
