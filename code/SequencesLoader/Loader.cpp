@@ -47,7 +47,7 @@ void Loader::constructor(const char*prefix,bool show,Rank rank){
 
 int Loader::load(string file,bool isGenome){
 	ifstream f(file.c_str());
-	bool exists=f;
+	bool exists=f.is_open();
 	f.close();
 	if(!exists){
 		cout<<"Ray: cannot access '"<<file<<"': No such file or directory"<<endl;

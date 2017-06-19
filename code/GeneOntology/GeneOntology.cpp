@@ -216,25 +216,25 @@ bool GeneOntology::fetchArguments(){
 
 		cout<<"[GeneOntology] ontology file: "<<m_ontologyFileName<<", annotation file: ";
 		cout<<m_annotationFileName<<endl;
-
+		//to check if the 2 gene ontologies inputs files does exist
 		ifstream test1(m_ontologyFileName.c_str());
-		bool test1Result=test1;
-		test1.close();
+		//bool test1Result=test1;
+		//test1.close();
 
-		if(!test1Result){
+		if(!test1.is_open()){
 			cout<<"Error: the file "<<m_ontologyFileName<<" does not exist."<<endl;
 			return false;
 		}
-
+        test1.close();
 		ifstream test2(m_annotationFileName.c_str());
-		bool test2Result=test2;
-		test2.close();
+		//bool test2Result=test2;
+		//test1.close();
 
-		if(!test2Result){
+		if(!test2.is_open()){
 			cout<<"Error: the file "<<m_annotationFileName<<" does not exist."<<endl;
 			return false;
 		}
-
+        test1.close();
 		return true;
 	}
 

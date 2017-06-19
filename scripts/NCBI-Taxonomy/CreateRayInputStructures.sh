@@ -1,10 +1,16 @@
 #!/bin/bash
-# Author: Sébastien Boisvert
-# Date: 2012-09-19
+# Author: Sébastien Boisvert & Christophe Duchesne-Ashworth
+# Date: 2017-05-12
 
 program=$0
 OutputDirectory=$1
-waitingSeconds=0
+
+waitingSeconds=10
+
+function HELP{
+		echo "-o <output_dir> : specifies an output directory"
+		echo "-s <archaea | bacteria | fungi | plant | invertebrate | protozoa | viral | >"
+	}
 
 if test "$OutputDirectory" = ""
 then

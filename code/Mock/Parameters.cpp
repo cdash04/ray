@@ -1069,7 +1069,7 @@ void Parameters::constructor(int argc,char**argv,int rank,int size,
 	bool hasCommandFile=false;
 	if(argc==2){
 		ifstream f(argv[1]);
-		hasCommandFile=f;
+		hasCommandFile=f.is_open();
 		f.close();
 	}
 
