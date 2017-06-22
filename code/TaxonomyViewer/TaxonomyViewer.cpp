@@ -447,9 +447,10 @@ void TaxonomyViewer::gatherKmerObservations(){
 			PhysicalKmerColor physicalColor=*j;
 	
 			PhysicalKmerColor nameSpace=physicalColor/COLOR_NAMESPACE_MULTIPLIER;
-		
-			// associated with -with-taxonomy
+            // associated with -with-taxonomy
+            std::cout << "comparaison between " << nameSpace << " and " << COLOR_NAMESPACE_PHYLOGENY << std::endl;
 			if(nameSpace==COLOR_NAMESPACE_PHYLOGENY){
+
 				PhysicalKmerColor colorForPhylogeny=physicalColor % COLOR_NAMESPACE_MULTIPLIER;
 
 				#ifdef CONFIG_ASSERT
@@ -1287,8 +1288,9 @@ void TaxonomyViewer::extractColorsForPhylogeny(){
 			PhysicalKmerColor physicalColor=*j;
 	
 			PhysicalKmerColor nameSpace=physicalColor/COLOR_NAMESPACE_MULTIPLIER;
-		
+            std::cout << "comparaison between " << nameSpace << " and " << COLOR_NAMESPACE_PHYLOGENY << std::endl;
 			if(nameSpace==COLOR_NAMESPACE_PHYLOGENY){
+
 				PhysicalKmerColor colorForPhylogeny=physicalColor % COLOR_NAMESPACE_MULTIPLIER;
 
 				m_colorsForPhylogeny.insert(colorForPhylogeny);

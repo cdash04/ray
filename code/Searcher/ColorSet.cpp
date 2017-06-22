@@ -108,7 +108,7 @@ void ColorSet::decrementReferences(VirtualKmerColorHandle handle){
 
 	VirtualKmerColor*virtualColor=getVirtualColor(handle);
 
-	// we don't care aboput the empty virtual color
+	// we don't care about the empty virtual color
 	if(handle == NULL_VIRTUAL_COLOR)
 		return;
 

@@ -3584,7 +3584,7 @@ void Searcher::call_RAY_MPI_TAG_WRITE_SEQUENCE_ABUNDANCE_ENTRY(Message*message){
 
 
 	// write the file if there are not 0 matches
-	if(entryIsWorthy ){
+	if(entryIsWorthy ){	
 
 		ostringstream content;
 		

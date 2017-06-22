@@ -24,6 +24,7 @@
 
 #include "GeneOntology.h"
 #include "KeyEncoder.h"
+#include <code/Mock/constants.h>
 
 #include <code/VerticesExtractor/GridTableIterator.h>
 
@@ -699,8 +700,8 @@ void GeneOntology::writeOntologyFiles(){
 
 
 
-	for(map<GeneOntologyIdentifier,map<CoverageDepth,int> >::iterator i=
-		m_ontologyTermFrequencies.begin();i!=m_ontologyTermFrequencies.end();i++){
+	for(std::map<GeneOntologyIdentifier,map<CoverageDepth,int> >::iterator i
+                                =m_ontologyTermFrequencies.begin();i!=m_ontologyTermFrequencies.end();i++){
 
 		GeneOntologyIdentifier handle=i->first;
 
@@ -1098,7 +1099,7 @@ void GeneOntology::addParentGeneOntologyIdentifier(GeneOntologyIdentifier term,G
 void GeneOntology::getChildren(GeneOntologyIdentifier handle,vector<GeneOntologyIdentifier>*children){
 
 	#ifdef CONFIG_ASSERT
-	assert(children->size()==0);
+		assert(children->size()==0);
 	#endif
 
 	if(m_children.count(handle)==0){
