@@ -89,6 +89,7 @@ void GenomeToTaxonLoader::getNext(GenomeIdentifier*genome,TaxonIdentifier*taxon)
     for (string::const_iterator it = tmpGenome.begin();it!= tmpGenome.end();++it){
         loadedGenome = ((int) *it) + (loadedGenome << 6)  + (loadedGenome << 16) - loadedGenome ;
     }
+    loadedGenome /= 10000000000;
 
 	std::cout << "genome " << loadedGenome << " linked to taxon " << loadedTaxon << std::endl;
 	(*genome)=loadedGenome;

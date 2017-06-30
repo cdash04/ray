@@ -25,7 +25,7 @@
 #include "types.h"
 
 #include <code/Mock/constants.h>
-
+#include <code/Searcher/ColorSet.h>
 #include <RayPlatform/core/types.h>
 
 #include <string>
