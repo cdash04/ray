@@ -732,7 +732,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
 	for (string::const_iterator it = content.begin();it!=content.end();++it){
 		identifier = ((int) *it) + (identifier << 6)  + (identifier << 16) - identifier ;
 	}
-    identifier /= 10000000000;
+    identifier /= 10000;
 
     //istringstream aStream;
     //aStream.str(hash_content);
