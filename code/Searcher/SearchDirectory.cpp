@@ -727,7 +727,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     // >NZ_G49.1
     // 0123456789
     string content=currentSequenceHeader.substr(1,i-1);
-    std::cout << "found the indentifier : " << content << " in the header" << std::endl;
+    std::cout << "found the indentifier : " << content << " in the header ";
     PhysicalKmerColor identifier=0;
 	for (string::const_iterator it = content.begin();it!=content.end();++it){
 		identifier = ((int) *it) + (identifier << 6)  + (identifier << 16) - identifier ;
