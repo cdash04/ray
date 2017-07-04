@@ -727,13 +727,21 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     // >NZ_G49.1
     // 0123456789
     string content=currentSequenceHeader.substr(1,i-1);
-    std::cout << "found the indentifier : " << content << " in the header ";
+    std::cout << "found the indentifier : " << content << " in the header " ;
     PhysicalKmerColor identifier=0;
+
+    // maximum value for a uint64_t:
+    // 18446744073709551615
+    // xxxx000yyyyyyyyyyyyy
+    //    10000000000000000
+    // xxxx0000000000000000
+    //     000yyyyyyyyyyyyy
+
 	for (string::const_iterator it = content.begin();it!=content.end();++it){
 		identifier = ((int) *it) + (identifier << 6)  + (identifier << 16) - identifier ;
 	}
-    identifier /= 10000;
-
+    //identifier /= 10000;
+    identifier = identifier - ((identifier/COLOR_NAMESPACE_MULTIPLIER)*COLOR_NAMESPACE_MULTIPLIER);
     //istringstream aStream;
     //aStream.str(hash_content);
 
