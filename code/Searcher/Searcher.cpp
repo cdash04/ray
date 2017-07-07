@@ -19,7 +19,7 @@
 */
 
 #define PROCESSED_PERIOD 100000 /* 2^18 */
-#define DEBUG_PHYLOGENY
+//#define DEBUG_PHYLOGENY
 #define CONFIG_DOUBLE_PRECISION 100000
 
 #ifdef DEBUG_SEARCHER_PLUGIN
@@ -3297,9 +3297,9 @@ void Searcher::call_RAY_SLAVE_MODE_ADD_COLORS(){
 
 		if(m_searchDirectories[m_directoryIterator].hasCurrentSequenceIdentifier()){
 			PhysicalKmerColor theIdentifier=m_searchDirectories[m_directoryIterator].getCurrentSequenceIdentifier();
-            std::cout << "[taxon] directory iterator has current sequence identifier" << std::endl;
-            std::cout << "creating identifier with COLOR_NAMESPACE_PHYLOGENY : " << COLOR_NAMESPACE_PHYLOGENY
-                                                                                 << "and the identifier : " << theIdentifier << std::endl;
+            //std::cout << "[taxon] directory iterator has current sequence identifier" << std::endl;
+            //std::cout << "creating identifier with COLOR_NAMESPACE_PHYLOGENY : " << COLOR_NAMESPACE_PHYLOGENY
+            //<< "and the identifier : " << theIdentifier << std::endl;
 			m_identifier=buildGlobalHandle(COLOR_NAMESPACE_PHYLOGENY,theIdentifier);
 
 		}else if(m_searchDirectories[m_directoryIterator].hasIdentifier_EMBL_CDS()){
@@ -3311,7 +3311,7 @@ void Searcher::call_RAY_SLAVE_MODE_ADD_COLORS(){
 		}
 
 		#ifdef DEBUG_PHYLOGENY
-		cout<<"[phylogeny] [taxon] identifier= "<<m_identifier<<endl;
+		cout<<"[phylogeny] identifier= "<<m_identifier<<endl;
 		#endif
 
 		#ifdef CONFIG_ASSERT

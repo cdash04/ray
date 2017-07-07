@@ -622,28 +622,7 @@ bool SearchDirectory::lineIsSequenceHeader(char*line){
 /**
  * \see http://www.ncbi.nlm.nih.gov/RefSeq/RSfaq.html
  */
-//bool SearchDirectory::hasCurrentSequenceIdentifier(){
-//
-//	string currentSequenceHeader=m_currentSequenceHeader;
-//
-//	//cout<<"Identifier= "<<m_currentSequenceHeader<<endl;
-//
-//	// this means that the sequences are not genome sequences
-//	// but are genes or something like that.
-//	//if(m_currentSequenceHeader.find("|:") != string::npos){
-//		//cout<<"Contains '|:'"<<endl;
-//
-//		//return false;
-//	//}
-//
-//	if(currentSequenceHeader.find(">gi|") == string::npos)
-//		return false;
-//
-//	if(currentSequenceHeader.find(">gi|")==0)
-//		return true;
-//
-//	return false;
-//}
+
 
 bool SearchDirectory::hasCurrentSequenceIdentifier(){
 
@@ -669,42 +648,6 @@ bool SearchDirectory::hasCurrentSequenceIdentifier(){
 }
 
 
-//PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
-//	int count=0;
-//	int i=0;
-//
-//	string currentSequenceHeader=m_currentSequenceHeader;
-//
-//	while(i<(int)currentSequenceHeader.length() && count<2){
-//		if(currentSequenceHeader[i]=='|')
-//			count++;
-//
-//
-//		i++;
-//	}
-//
-//	if(count!=2){
-//		return DUMMY_IDENTIFIER; // return a dummy identifier
-//	}
-//
-//	// >gi|1234|
-//	//
-//	// 0123456789
-//	//
-//	// 9-4-1 = 4
-//	//
-//	string content=currentSequenceHeader.substr(4,i-4-1);
-//
-//	istringstream aStream;
-//	aStream.str(content);
-//
-//	PhysicalKmerColor identifier;
-//
-//	aStream>>identifier;
-//
-//	return identifier;
-//}
-
 PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     //int count=0;
     int i=0;
@@ -727,7 +670,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     // >NZ_G49.1
     // 0123456789
     string content=currentSequenceHeader.substr(1,i-1);
-    std::cout << "found the indentifier : " << content << " in the header " ;
+    //std::cout << "found the indentifier : " << content << " in the header " ;
     PhysicalKmerColor identifier=0;
 
     // maximum value for a uint64_t:
@@ -737,6 +680,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     // xxxx0000000000000000
     //     000yyyyyyyyyyyyy
 
+    //sdbm algorithm implementation http://www.cse.yorku.ca/~oz/hash.html
 	for (string::const_iterator it = content.begin();it!=content.end();++it){
 		identifier = ((int) *it) + (identifier << 6)  + (identifier << 16) - identifier ;
 	}
@@ -747,7 +691,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
 
 
     //aStream>>identifier;
-	std::cout <<"and the return value of the function is : " << identifier << std::endl ;
+	//std::cout <<"and the return value of the function is : " << identifier << std::endl ;
     return identifier;
 }
 

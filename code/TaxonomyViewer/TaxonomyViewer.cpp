@@ -1139,17 +1139,18 @@ void TaxonomyViewer::loadTaxons(){
 		TaxonIdentifier taxon;
 
 		genomeToTaxonUnit.getNext(&genome,&taxon);
-        std::cout << " [taxon] the count of genome : " << m_colorsForPhylogeny.count(genome);
+
 		if(m_colorsForPhylogeny.count(genome)>0){
 			m_taxonsForPhylogeny.insert(taxon);
 			
 			m_genomeToTaxon[genome]=taxon;
+            std::cout << " [taxon] the count of genome : " << m_colorsForPhylogeny.count(genome);
+            std::cout << " the genome : " << genome << " the taxon : " << m_genomeToTaxon[genome] << std::endl;
 		}
-        std::cout << " the genome : " << genome << " the taxon : " << taxon;
-        std::cout << " the genome : " << genome << " the taxon : " << m_genomeToTaxon[genome] << std::endl;
+
 	}
 
-	cout<<"[taxon] Rank "<<m_rank<<" loaded "<<m_taxonsForPhylogeny.size()<<" taxons."<<endl;
+	//cout<<"[taxon] Rank "<<m_rank<<" loaded "<<m_taxonsForPhylogeny.size()<<" taxons."<<endl;
 
 	m_colorsForPhylogeny.clear();
 
@@ -1291,16 +1292,16 @@ void TaxonomyViewer::extractColorsForPhylogeny(){
 			j!=physicalColors->end();j++){
 
 			PhysicalKmerColor physicalColor=*j;
-            std::cout << "[taxon] physicalColor : " <<  physicalColor << " COLOR_NAMESPACE_MULTIPLIER : " << COLOR_NAMESPACE_MULTIPLIER;
+            //std::cout << "[taxon] physicalColor : " <<  physicalColor << " COLOR_NAMESPACE_MULTIPLIER : " << COLOR_NAMESPACE_MULTIPLIER;
 			PhysicalKmerColor nameSpace=physicalColor/COLOR_NAMESPACE_MULTIPLIER;
             std::cout << " nameSpace: " << nameSpace << " COLOR_NAMESPACE_PHYLOGENY : " << COLOR_NAMESPACE_PHYLOGENY << std::endl;
 			if(nameSpace==COLOR_NAMESPACE_PHYLOGENY){
 				PhysicalKmerColor colorForPhylogeny=physicalColor % COLOR_NAMESPACE_MULTIPLIER;
-                std::cout << "[taxon] in the statement if(nameSpace==COLOR_NAMESPACE_PHYLOGENY)" << std::endl;
+                //std::cout << "[taxon] in the statement if(nameSpace==COLOR_NAMESPACE_PHYLOGENY)" << std::endl;
 				m_colorsForPhylogeny.insert(colorForPhylogeny);
 
 				#ifdef DEBUG_PHYLOGENY
-				cout<<"[phylogeny] [taxon] colorForPhylogeny= "<<colorForPhylogeny<<endl;
+				//cout<<"[phylogeny] [taxon] colorForPhylogeny= "<<colorForPhylogeny<<endl;
 				#endif
 			}
 		}
@@ -1310,14 +1311,14 @@ void TaxonomyViewer::extractColorsForPhylogeny(){
 	cout<<endl;
 
 	m_extractedColorsForPhylogeny=true;
-    std::cout << "[taxon] m_extractedColorsForPhylogeny :" << m_extractedColorsForPhylogeny << "from extractColorPhylogeny" << std::endl;
+    //std::cout << "[taxon] m_extractedColorsForPhylogeny :" << m_extractedColorsForPhylogeny << "from extractColorPhylogeny" << std::endl;
 	m_loadedTaxonsForPhylogeny=false;
 
 	m_totalNumberOfKmerObservations=m_searcher->getTotalNumberOfKmerObservations();
 }
 
 void TaxonomyViewer::registerPlugin(ComputeCore*core){
-    std::cout << "[taxon] running registerPlugin" << std::endl;
+    //std::cout << "[taxon] running registerPlugin" << std::endl;
 	m_plugin=core->allocatePluginHandle();
 
 	core->setPluginName(m_plugin,"TaxonomyViewer");
@@ -1364,7 +1365,7 @@ void TaxonomyViewer::registerPlugin(ComputeCore*core){
 	m_rank=core->getRank();
 	m_size=core->getSize();
 	m_extractedColorsForPhylogeny=false;
-    std::cout << "[taxon] m_extractedColorsForPhylogeny :" << m_extractedColorsForPhylogeny << "from registerPlugin" <<std::endl;
+    //std::cout << "[taxon] m_extractedColorsForPhylogeny :" << m_extractedColorsForPhylogeny << "from registerPlugin" <<std::endl;
 	UNKNOWN_TAXON=COLOR_NAMESPACE_MULTIPLIER;
 
 	m_loadAllTree=true;

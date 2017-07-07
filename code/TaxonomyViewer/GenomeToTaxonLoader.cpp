@@ -84,14 +84,14 @@ void GenomeToTaxonLoader::getNext(GenomeIdentifier*genome,TaxonIdentifier*taxon)
 	TaxonIdentifier loadedTaxon;
 
 	m_stream>>tmpGenome>>loadedTaxon;
-	std::cout << "the ifstream contain : " << tmpGenome << std::endl;
-
+	//std::cout << "the ifstream contain : " << tmpGenome << std::endl;
+    //sdbm algorithm implementation http://www.cse.yorku.ca/~oz/hash.html
     for (string::const_iterator it = tmpGenome.begin();it!= tmpGenome.end();++it){
         loadedGenome = ((int) *it) + (loadedGenome << 6)  + (loadedGenome << 16) - loadedGenome ;
     }
     loadedGenome = loadedGenome - ((loadedGenome / COLOR_NAMESPACE_MULTIPLIER)*COLOR_NAMESPACE_MULTIPLIER);
 
-	std::cout << "genome " << loadedGenome << " linked to taxon " << loadedTaxon << std::endl;
+	//std::cout << "genome " << loadedGenome << " linked to taxon " << loadedTaxon << std::endl;
 	(*genome)=loadedGenome;
 	(*taxon)=loadedTaxon;
 
