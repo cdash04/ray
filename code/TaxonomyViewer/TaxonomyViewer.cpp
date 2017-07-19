@@ -153,7 +153,6 @@ void TaxonomyViewer::copyTaxonsFromSecondaryTable(){
 }
 
 void TaxonomyViewer::call_RAY_SLAVE_MODE_PHYLOGENY_MAIN(){
-    std::cout << " running call_RAY_SLAVE_MODE_PHYLOGENY_MAIN" << std::endl;
 	if(!m_extractedColorsForPhylogeny){
         std::cout << "[taxon] in the if(!m_extractedColorsForPhylogeny) condition" << std::endl;
 		extractColorsForPhylogeny();
