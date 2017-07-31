@@ -458,7 +458,7 @@ void TaxonomyViewer::gatherKmerObservations(){
 
 				#ifdef CONFIG_ASSERT
 				if(m_colorsForPhylogeny.count(colorForPhylogeny)==0){
-					//cout<<"Error: color "<<colorForPhylogeny<<" should be in m_colorsForPhylogeny which contains "<<m_colorsForPhylogeny.size()<<endl;
+					cout<<"Error: color "<<colorForPhylogeny<<" should be in m_colorsForPhylogeny which contains "<<m_colorsForPhylogeny.size()<<endl;
 				}
 				#endif
 

@@ -651,16 +651,30 @@ bool SearchDirectory::hasCurrentSequenceIdentifier(){
 PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     //int count=0;
     int i=0;
-
+    string content;
     string currentSequenceHeader=m_currentSequenceHeader;
-
-    while(i<(int)currentSequenceHeader.length() && currentSequenceHeader[i]!=' '){
-        i++;
+    //if the old NCBI files are used,
+    if (currentSequenceHeader.find(">gi|")==0) {
+        int count = 0;
+        int j = 0;
+        while (i < (int) currentSequenceHeader.length() && count < 4) {
+            if (currentSequenceHeader[i] == '|')
+                count++;
+            if (count == 3) j = i;
+            i++;
+        }
+        if (count != 4)
+            return DUMMY_IDENTIFIER; // return a dummy identifier
+        content = currentSequenceHeader.substr(j + 1, i - j - 1);
+    }else {
+        while (i < (int) currentSequenceHeader.length() && currentSequenceHeader[i] != ' ') {
+            i++;
+        }
+        if(i==currentSequenceHeader.length())
+            return DUMMY_IDENTIFIER; // return a dummy identifier
+        content=currentSequenceHeader.substr(1,i-1);
     }
 
-    if(i==currentSequenceHeader.length()){
-        return DUMMY_IDENTIFIER; // return a dummy identifier
-    }
 
     // >gi|1234|
     // 0123456789
@@ -669,7 +683,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     //
     // >NZ_G49.1
     // 0123456789
-    string content=currentSequenceHeader.substr(1,i-1);
+
     //std::cout << "found the indentifier : " << content << " in the header " ;
     PhysicalKmerColor identifier=0;
 
@@ -684,7 +698,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
 	for (string::const_iterator it = content.begin();it!=content.end();++it){
 		identifier = ((int) *it) + (identifier << 6)  + (identifier << 16) - identifier ;
 	}
-    //identifier /= 10000;
+    //remove the fist 4 digit from the left for the namespace
     identifier = identifier - ((identifier/COLOR_NAMESPACE_MULTIPLIER)*COLOR_NAMESPACE_MULTIPLIER);
     //istringstream aStream;
     //aStream.str(hash_content);
