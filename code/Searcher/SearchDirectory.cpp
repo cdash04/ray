@@ -654,7 +654,7 @@ PhysicalKmerColor SearchDirectory::getCurrentSequenceIdentifier(){
     string content;
     string currentSequenceHeader=m_currentSequenceHeader;
     //if the old NCBI files are used,
-    if (currentSequenceHeader.find(">gi|")==0) {
+    if (currentSequenceHeader.find(">gi|") != string::npos ) {
         int count = 0;
         int j = 0;
         while (i < (int) currentSequenceHeader.length() && count < 4) {
