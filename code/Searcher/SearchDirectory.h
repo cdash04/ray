@@ -26,7 +26,7 @@
 
 #include <code/KmerAcademyBuilder/Kmer.h>
 #include <code/GeneOntology/KeyEncoder.h>
-
+#include <code/Searcher/ColorSet.h>
 #include <set>
 #include <string>
 #include <fstream>
