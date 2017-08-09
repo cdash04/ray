@@ -19,7 +19,7 @@
 */
 
 //#define DEBUG_RECURSION
-#define DEBUG_PHYLOGENY
+//#define DEBUG_PHYLOGENY
 #include "TaxonomyViewer.h"
 #include "GenomeToTaxonLoader.h"
 #include "TaxonomicTreeLoader.h"
@@ -154,7 +154,7 @@ void TaxonomyViewer::copyTaxonsFromSecondaryTable(){
 
 void TaxonomyViewer::call_RAY_SLAVE_MODE_PHYLOGENY_MAIN(){
 	if(!m_extractedColorsForPhylogeny){
-        std::cout << "[taxon] in the if(!m_extractedColorsForPhylogeny) condition" << std::endl;
+//        std::cout << "[taxon] in the if(!m_extractedColorsForPhylogeny) condition" << std::endl;
 		extractColorsForPhylogeny();
 
 	}else if(!m_loadedTaxonsForPhylogeny){
@@ -447,11 +447,11 @@ void TaxonomyViewer::gatherKmerObservations(){
 			PhysicalKmerColor physicalColor=*j;
 	
 			PhysicalKmerColor nameSpace=physicalColor/COLOR_NAMESPACE_MULTIPLIER;
-		    std::cout << "[taxon] physical color : " << physicalColor << " COLOR_NAMESPACE_MULTIPLIER : " << COLOR_NAMESPACE_MULTIPLIER
-                                                                                                          << " namespace : "
-                                                                                                          << nameSpace
-                                                                                                          << "COLOR_NAMESPACE_PHYLOGENY : "
-                                                                                                          << COLOR_NAMESPACE_PHYLOGENY << std::endl;
+//		    std::cout << "[taxon] physical color : " << physicalColor << " COLOR_NAMESPACE_MULTIPLIER : " << COLOR_NAMESPACE_MULTIPLIER
+//                                                                                                          << " namespace : "
+//                                                                                                          << nameSpace
+//                                                                                                          << "COLOR_NAMESPACE_PHYLOGENY : "
+//                                                                                                          << COLOR_NAMESPACE_PHYLOGENY << std::endl;
 			// associated with -with-taxonomy
 			if(nameSpace==COLOR_NAMESPACE_PHYLOGENY){
 				PhysicalKmerColor colorForPhylogeny=physicalColor % COLOR_NAMESPACE_MULTIPLIER;
@@ -1067,7 +1067,7 @@ string TaxonomyViewer::getTaxonRank(TaxonIdentifier taxon){
 
 void TaxonomyViewer::printTaxonPath(TaxonIdentifier taxon,vector<TaxonIdentifier>*path,ostream*stream){
 
-	std::cout<<"Taxon= "<<taxon<<std::endl;
+//	std::cout<<"Taxon= "<<taxon<<std::endl;
 
 	for(int i=0;i<(int)path->size();i++){
 
@@ -1143,8 +1143,8 @@ void TaxonomyViewer::loadTaxons(){
 			m_taxonsForPhylogeny.insert(taxon);
 			
 			m_genomeToTaxon[genome]=taxon;
-            std::cout << " [taxon] the count of genome : " << m_colorsForPhylogeny.count(genome);
-            std::cout << " the genome : " << genome << " the taxon : " << m_genomeToTaxon[genome] << std::endl;
+//            std::cout << " [taxon] the count of genome : " << m_colorsForPhylogeny.count(genome);
+//            std::cout << " the genome : " << genome << " the taxon : " << m_genomeToTaxon[genome] << std::endl;
 		}
 
 	}
@@ -1293,7 +1293,7 @@ void TaxonomyViewer::extractColorsForPhylogeny(){
 			PhysicalKmerColor physicalColor=*j;
             //std::cout << "[taxon] physicalColor : " <<  physicalColor << " COLOR_NAMESPACE_MULTIPLIER : " << COLOR_NAMESPACE_MULTIPLIER;
 			PhysicalKmerColor nameSpace=physicalColor/COLOR_NAMESPACE_MULTIPLIER;
-            std::cout << " nameSpace: " << nameSpace << " COLOR_NAMESPACE_PHYLOGENY : " << COLOR_NAMESPACE_PHYLOGENY << std::endl;
+//            std::cout << " nameSpace: " << nameSpace << " COLOR_NAMESPACE_PHYLOGENY : " << COLOR_NAMESPACE_PHYLOGENY << std::endl;
 			if(nameSpace==COLOR_NAMESPACE_PHYLOGENY){
 				PhysicalKmerColor colorForPhylogeny=physicalColor % COLOR_NAMESPACE_MULTIPLIER;
                 //std::cout << "[taxon] in the statement if(nameSpace==COLOR_NAMESPACE_PHYLOGENY)" << std::endl;
